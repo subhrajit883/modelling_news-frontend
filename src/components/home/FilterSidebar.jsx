@@ -9,13 +9,13 @@ import axios from "axios";
 const FilterSidebar = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    
+
     const currentSearch = searchParams.get('search') || '';
-    
+
     const [categories, setCategories] = useState([]);
     const [countries, setCountries] = useState([]);
     const [years, setYears] = useState([]);
-    
+
     const [selectedCountry, setSelectedCountry] = useState(searchParams.get('country') || '');
     const [selectedYear, setSelectedYear] = useState(searchParams.get('year') || '');
 
@@ -50,7 +50,7 @@ const FilterSidebar = () => {
     useEffect(() => {
         fetchCategories();
         fetchCountry();
-        fetchYear()
+        fetchYear();
     }, []);
 
     const handleApplyFilters = () => {
@@ -61,24 +61,24 @@ const FilterSidebar = () => {
 
         navigate(`/search?${params.toString()}`);
     };
+
     return (
 
-        <div className="rounded  p-6 shadow">
+        <div className="rounded md:p-6 p-3 mt-5 md:mt-2">
 
-            <h2 className="mb-6 border-b pb-3 text-2xl font-bold">
+            <h2 className="md:mb-6 mb-3 border-b md:pb-3 pb-1 text-2xl libertinus-serif-semibold">
                 Filter News
             </h2>
 
             <div className="space-y-5">
 
                 <div>
-
-                    <label className="mb-2 block font-semibold">
+                    <label className="mb-2 block font-semibold ">
                         Country
                     </label>
 
-                    <select 
-                        className="w-full rounded border p-3 text-black"
+                    <select
+                        className="w-full rounded border md:p-3 p-2 text-gray-500"
                         value={selectedCountry}
                         onChange={(e) => setSelectedCountry(e.target.value)}
                     >
@@ -89,15 +89,14 @@ const FilterSidebar = () => {
                     </select>
 
                 </div>
-
                 <div>
 
                     <label className="mb-2 block font-semibold">
                         Year
                     </label>
 
-                    <select 
-                        className="w-full rounded border p-3 text-black"
+                    <select
+                        className="w-full rounded border p-2 md:p-3 text-gray-500"
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
                     >
@@ -127,7 +126,7 @@ const FilterSidebar = () => {
 
                 </div> */}
 
-                <Button className="w-full" onClick={handleApplyFilters}>
+                <Button className="w-full cursor-pointer libertinus-serif-semibold" onClick={handleApplyFilters}>
                     Apply Filters
                 </Button>
 

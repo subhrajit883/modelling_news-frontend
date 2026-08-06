@@ -16,6 +16,8 @@ import {
 } from "react-icons/fi";
 
 import { newsUrl } from "../../config/config";
+import FilterSidebar from "../components/home/FilterSidebar";
+import TrendingNews from "../components/home/TrendingNews";
 
 const NewsDetails = () => {
 
@@ -104,7 +106,7 @@ const NewsDetails = () => {
 
             <div className="border-b border-gray-200">
 
-                <div className="mx-auto flex max-w-7xl items-center gap-2 px-5 py-5 text-sm text-gray-500">
+                <div className="mx-auto flex max-w-7xl items-center gap-2 px-5 py-5 text-md text-gray-500 libertinus-serif-regular">
 
                     <Link
                         to="/"
@@ -119,7 +121,7 @@ const NewsDetails = () => {
                         <>
                             <Link
                                 to={`/category/${news.category.slug}`}
-                                className="transition hover:text-red-600"
+                                className="transition hover:text-red-600 "
                             >
                                 {news.category.name}
                             </Link>
@@ -128,7 +130,7 @@ const NewsDetails = () => {
                         </>
                     )}
 
-                    <span className="line-clamp-1 text-gray-900">
+                    <span className="line-clamp-1 text-gray-900 capitalize text-red-600 ">
                         {news.title}
                     </span>
 
@@ -138,11 +140,11 @@ const NewsDetails = () => {
 
             {/* Hero */}
 
-            <section className="mx-auto max-w-5xl px-5 py-14">
+            <section className="mx-auto max-w-5xl px-5 py-5">
 
                 {news.category && (
 
-                    <span className="rounded bg-red-600 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-white">
+                    <span className="rounded bg-red-600 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-white libertinus-serif-bold">
 
                         {news.category.name}
 
@@ -150,10 +152,9 @@ const NewsDetails = () => {
 
                 )}
 
-                <h1 className="mt-8 text-3xl font-black leading-tight text-gray-900 md:text-5xl">
+                <h1 className="mt-8 text-3xl font-black leading-tight text-gray-900 md:text-5xl playfair-display-regular ">
 
                     {news.title}
-
                 </h1>
 
                 <div className="mt-8 flex flex-wrap items-center gap-6 border-b border-gray-200 pb-8 text-sm text-gray-600">
@@ -210,7 +211,7 @@ const NewsDetails = () => {
                     <img
                         src={news.thumbnail.url}
                         alt={news.title}
-                        className="h-[300px] w-full rounded-xl object-cover shadow-lg md:h-[650px]"
+                        className="h-[300px] w-full rounded-xl object-cover shadow-lg md:h-[450px]"
                     />
 
                 ) : (
@@ -238,32 +239,7 @@ const NewsDetails = () => {
 
                     <div
                         className="
-                        prose
-                        prose-lg
-                        max-w-none
-
-                        prose-headings:font-black
-                        prose-headings:text-gray-900
-
-                        prose-p:leading-9
-                        prose-p:text-gray-700
-
-                        prose-a:text-red-600
-
-                        prose-img:rounded-xl
-                        prose-img:shadow-lg
-
-                        prose-blockquote:border-l-4
-                        prose-blockquote:border-red-600
-                        prose-blockquote:bg-gray-50
-                        prose-blockquote:px-6
-                        prose-blockquote:py-3
-                        prose-blockquote:italic
-
-                        prose-ul:list-disc
-                        prose-ol:list-decimal
-
-                        prose-strong:text-black
+                        manrope-regular text-base leading-relaxed tracking-wider text-gray-600
                     "
                         dangerouslySetInnerHTML={{
                             __html: news.content,
@@ -381,7 +357,7 @@ const NewsDetails = () => {
 
                     {/* Trending */}
 
-                    <div className="mt-12">
+                    {/* <div className="mt-12">
 
                         <h3 className="mb-8 border-l-4 border-red-600 pl-4 text-2xl font-black">
 
@@ -401,15 +377,11 @@ const NewsDetails = () => {
                                 <div>
 
                                     <p className="text-xs uppercase tracking-widest text-red-600">
-
                                         Fashion
-
                                     </p>
 
                                     <h4 className="mt-2 cursor-pointer text-lg font-bold leading-7 transition hover:text-red-600">
-
                                         Trending article title goes here
-
                                     </h4>
 
                                     <p className="mt-2 text-sm text-gray-500">
@@ -424,7 +396,7 @@ const NewsDetails = () => {
 
                         ))}
 
-                    </div>
+                    </div> */}
 
                     {/* Newsletter */}
 
@@ -456,6 +428,23 @@ const NewsDetails = () => {
                         </button>
 
                     </div> */}
+                    <div className="space-y-8 lg:col-span-1">
+                        <FilterSidebar />
+
+                        {/* <div className="rounded bg-white p-6 shadow">
+                            <h2 className="mb-4 border-b pb-3 text-lg font-bold uppercase">Search News</h2>
+                            <div className="flex">
+                                <input type="text" placeholder="Search news..." className="w-full rounded-l border border-r-0 p-3 outline-none" />
+                                <button className="flex items-center justify-center rounded-r bg-black px-4 text-white hover:bg-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div> */}
+
+                        <TrendingNews />
+                    </div>
 
                 </aside>
 

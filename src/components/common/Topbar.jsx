@@ -8,7 +8,7 @@ const Topbar = () => {
     return (
         <div className="bg-red-600 text-white">
 
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-2">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-2 libertinus-serif-semibold">
 
                 <p>{date}</p>
                 <div className="flex gap-4">

@@ -13,6 +13,7 @@ function Category() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         const fetchCategoryData = async () => {
             setLoading(true);
             try {
@@ -21,7 +22,6 @@ function Category() {
                 const categories = Array.isArray(catRes.data?.data) ? catRes.data.data : [];
                 const currentCategory = categories.find(c => c.slug === slug);
                 setCategory(currentCategory || null);
-                console.log(currentCategory);
                 // Fetch news for this category
                 const newsRes = await axios.get(newsUrl.getAll);
                 const allNews = Array.isArray(newsRes.data?.data) ? newsRes.data.data : [];
@@ -50,7 +50,7 @@ function Category() {
         <div className="bg-gray-50 pb-12 pt-6">
             <div className="mx-auto max-w-7xl px-5">
                 {/* Breadcrumb */}
-                <div className="mb-6 text-sm text-gray-500">
+                <div className="mb-6 text-md text-gray-500 libertinus-serif-regular">
                     <Link to="/" className="hover:text-red-600">Home</Link>
                     <span className="mx-2">&gt;</span>
                     <span className="capitalize text-red-600">{category.name}</span>
@@ -58,10 +58,10 @@ function Category() {
 
                 {/* Header */}
                 <div className="mb-10">
-                    <h1 className="mb-3 text-4xl font-bold uppercase tracking-wide text-black">
+                    <h1 className="mb-3 text-4xl font-bold uppercase tracking-wide text-black  playfair-display-regular">
                         {category.name}
                     </h1>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 manrope-regular tracking-wide">
                         Get the latest {category.name.toLowerCase()} news, trend updates, designer collections, street style and editorials from around the world.
                     </p>
                 </div>
@@ -69,8 +69,8 @@ function Category() {
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
                     {/* Main Content */}
                     <div className="lg:col-span-3">
-                        <div className="mb-6 flex items-center justify-between border-b pb-4">
-                            <p className="text-sm text-gray-600">
+                        <div className="mb-6 flex items-center justify-between border-b pb-4 libertinus-serif-regular">
+                            <p className="text-md text-gray-600">
                                 Showing 1–{news.length || 0} of {news.length || 0} results
                             </p>
                             <select className="rounded border bg-white px-3 py-2 text-sm outline-none">

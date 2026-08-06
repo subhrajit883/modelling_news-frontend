@@ -20,9 +20,8 @@ import Dashboard from "../pages/admin/Dashboard";
 // import Countries from "../pages/admin/Countries";
 
 import ProtectedRoute from "./ProtectedRoute";
-
 import MainLayout from "../Layout/MainLayout";
-
+import AdminLayout from "../components/admin/AdminLayout";
 
 const AppRoute = () => {
     return (
@@ -30,24 +29,14 @@ const AppRoute = () => {
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Home />} />
-
                     <Route path="/category/:slug" element={<Category />} />
-
                     <Route path="/search" element={<SearchedData />} />
-
                     <Route path="/news/:slug" element={<NewsDetails />} />
-                    {/* 
-                    <Route path="/country/:slug" element={<Country />} />
-
-                    <Route path="/year/:year" element={<Year />} />
-                 */}
                 </Route>
 
                 <Route path="/login" element={<Login />} />
 
-                <Route
-                    element={<MainLayout />}
-                >
+                <Route element={<AdminLayout />}>
                     <Route
                         path="/admin"
                         element={
