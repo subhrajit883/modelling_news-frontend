@@ -22,6 +22,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import MainLayout from "../Layout/MainLayout";
 import AdminLayout from "../components/admin/AdminLayout";
+import NewsPost from "../pages/admin/NewsPost";
 
 const AppRoute = () => {
     return (
@@ -47,15 +48,15 @@ const AppRoute = () => {
                     />
                 </Route>
 
-                {/* <Route
+                <Route
                     path="/admin/news"
                     element={
                         <ProtectedRoute>
-                            <News />
+                            <NewsPost />
                         </ProtectedRoute>
                     }
                 />
-
+                {/*
                 <Route
                     path="/admin/news/add"
                     element={

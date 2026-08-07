@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { newsUrl } from "../../../config/config";
+import { categoryUrl, newsUrl } from "../../../config/config";
 
 const FeaturedNews = () => {
     const [news, setNews] = useState([])
-
+    const [categories, setCategories] = useState([])
     const FeaturedNews = async (req, res) => {
         try {
             const res = await axios.get(newsUrl.getAll)
@@ -15,9 +15,40 @@ const FeaturedNews = () => {
         }
     }
 
+
+    const GetCatWise = async (categoryId) => {
+        console.log("inside cat");
+        try {
+            const res = await axios.get(`${newsUrl.getCatWise}/${categoryId}`);
+            // setNews(res.data.data);
+            console.log("cat wise data", res.data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const fetchCategories = async () => {
+        try {
+            const res = await axios.get(categoryUrl.getAll);
+            const categoriesData = res.data.data;
+            setCategories(categoriesData);
+            console.log("cat", categoriesData);
+            
+            if (categoriesData && categoriesData.length > 0) {
+                const categoryIds = categoriesData.map(cat => cat._id);
+                categoryIds.forEach(id => {
+                    GetCatWise(id);
+                });
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
-        FeaturedNews()
-    }, [])
+        FeaturedNews();
+        fetchCategories();
+    }, []);
 
     return (
         <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">

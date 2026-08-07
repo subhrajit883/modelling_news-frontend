@@ -14,6 +14,7 @@ export const newsUrl = {
   update: `${BASE_URL}/news/:id`,
   delete: `${BASE_URL}/news/:id`,
   recent: `${BASE_URL}/news/recent`,
+  getCatWise: `${BASE_URL}/news/categorywise`,
 }
 
 export const categoryUrl = {

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const LatestNews = () => {
     const [news, setNews] = useState([])
-
+    const [categories, setCategories] = useState([]);
     const getLatestNews = async () => {
         try {
             const res = await axios.get(newsUrl.recent);
@@ -20,6 +20,7 @@ const LatestNews = () => {
 
     useEffect(() => {
         getLatestNews()
+
     }, [])
     return (
         <section className="mx-auto max-w-7xl px-4 pb-10">
@@ -40,6 +41,7 @@ const LatestNews = () => {
                             />
                         ))}
                     </div>
+
 
                 </div>
 

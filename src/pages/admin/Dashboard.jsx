@@ -124,13 +124,13 @@ function Dashboard() {
 
     // Table Columns Config
     const categoryColumns = [
-        { header: '#', render: (_, index) => index + 1 },
+        // { header: '#', render: (_, index) => index + 1 },
         { header: 'Name', accessor: 'name' },
         // { header: 'Slug', accessor: 'slug' }
     ];
 
     const countryColumns = [
-        { header: '#', render: (_, index) => index + 1 },
+        // { header: '#', render: (_, index) => index + 1 },
         { header: 'Name', accessor: 'name' },
         // { header: 'Code', accessor: 'code', render: (row) => row.code || 'N/A' } // Fallback if no code
     ];

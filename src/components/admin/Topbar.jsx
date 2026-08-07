@@ -5,7 +5,7 @@ const Topbar = ({ toggleSidebar }) => {
     return (
         <header className="flex items-center justify-between h-16 px-6 bg-[#1A1C23] border-b border-gray-800 z-10 shrink-0">
             <div className="flex items-center">
-                <button 
+                <button
                     onClick={toggleSidebar}
                     className="text-gray-400 hover:text-white focus:outline-none focus:text-white transition-colors"
                 >
@@ -22,7 +22,7 @@ const Topbar = ({ toggleSidebar }) => {
                     </div>
                     <div className="hidden md:flex md:flex-col md:items-start md:justify-center mr-2">
                         <span className="text-sm font-semibold text-white group-hover:text-gray-200 transition-colors">Admin</span>
-                        <span className="text-xs text-gray-400">Super Admin</span>
+                        {/* <span className="text-xs text-gray-400">Super Admin</span> */}
                     </div>
                     <FiChevronDown className="text-gray-400 group-hover:text-white transition-colors" />
                 </div>

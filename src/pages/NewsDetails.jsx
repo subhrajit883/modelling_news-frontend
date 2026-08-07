@@ -189,14 +189,14 @@ const NewsDetails = () => {
                         </div>
 
                     )}
-
+                    {/* 
                     <div className="flex items-center gap-2">
 
                         <FiClock className="text-red-600" />
 
                         5 min read
 
-                    </div>
+                    </div> */}
 
                 </div>
 

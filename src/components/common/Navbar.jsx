@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { categoryUrl } from "../../../config/config";
 import axios from "axios";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
+import logo from "../../assets/MODELLING (2).png"
 
 const Navbar = () => {
     const [categories, setCategories] = useState([]);
@@ -24,16 +25,20 @@ const Navbar = () => {
 
     return (
         <nav className="sticky top-0 z-50 bg-black text-white">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
 
                 {/* Logo */}
-                <Link
-                    to="/"
-                    className="text-2xl font-bold uppercase md:text-3xl"
-                >
-                    Modelling News
-                </Link>
-
+                <div className="w-60 ">
+                    <Link
+                        to="/"
+                        className="text-2xl font-bold md:text-3xl"
+                    >
+                        {/* <h2 className="mb-5 text-3xl font-bold tracking-tight playfair-display-regular">
+                        Modelling<span className="text-red-600">News</span>
+                    </h2> */}
+                        <img src={logo} alt="logo image" className="h-16 w-full object-contain" />
+                    </Link>
+                </div>
                 {/* Desktop Menu */}
                 <div className="hidden items-center gap-8 lg:flex playfair-display-regular tracking-wider">
                     {categories.map((category) => (

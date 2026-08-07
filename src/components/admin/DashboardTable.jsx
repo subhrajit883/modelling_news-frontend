@@ -7,7 +7,7 @@ const DashboardTable = ({ title, columns, data, onAdd, onEdit, onDelete, addText
             <div className="p-5 flex justify-between items-center border-b border-gray-100">
                 <h3 className="text-lg font-bold text-gray-800">{title}</h3>
                 {onAdd && addText && (
-                    <button 
+                    <button
                         onClick={onAdd}
                         className="bg-[#DC2626] hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center"
                     >
@@ -15,7 +15,7 @@ const DashboardTable = ({ title, columns, data, onAdd, onEdit, onDelete, addText
                     </button>
                 )}
             </div>
-            
+
             <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                     <thead>

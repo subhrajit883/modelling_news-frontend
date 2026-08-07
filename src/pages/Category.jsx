@@ -47,7 +47,7 @@ function Category() {
     }
 
     return (
-        <div className="bg-gray-50 pb-12 pt-6">
+        <div className="bg-gray-50 pb-12 pt-6 min-h-screen">
             <div className="mx-auto max-w-7xl px-5">
                 {/* Breadcrumb */}
                 <div className="mb-6 text-md text-gray-500 libertinus-serif-regular">
