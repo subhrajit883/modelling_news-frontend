@@ -10,7 +10,14 @@ const LatestNews = () => {
     const [categories, setCategories] = useState([]);
     const getLatestNews = async () => {
         try {
-            const res = await axios.get(newsUrl.recent);
+            const res = await axios.get(newsUrl.getAll,
+                {
+                    params: {
+                        page: 1,
+                        limit: 11
+                    }
+                }
+            );
             setNews(res.data.data);
             console.log("latest", res.data.data)
         } catch (err) {

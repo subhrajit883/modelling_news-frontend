@@ -23,7 +23,7 @@ const Footer = () => {
     }, []);
 
     return (
-        <footer className="mt-16 bg-black text-white">
+        <footer className="bg-black  text-white">
 
             {/* Main Footer */}
             <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">

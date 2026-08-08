@@ -9,7 +9,7 @@ const TrendingNews = () => {
     const [trendingNews, setTrendingNews] = useState([]);
 
     const FetchTrendingNews = async () => {
-        const res = await axios.get(newsUrl.getAll);
+        const res = await axios.get(newsUrl.getTrending);
         console.log("trending", res.data.data);
         const trendingNews = res.data.data;
         setTrendingNews(trendingNews);
@@ -27,7 +27,7 @@ const TrendingNews = () => {
             </h2>
 
             <div className="space-y-5">
-                {trendingNews.slice(5, 10).map((news, index) => (
+                {trendingNews.slice(0, 5).map((news, index) => (
                     <TrendingCard
                         key={news.slug}
                         news={news}

@@ -47,6 +47,7 @@ function CategoryWiseNews() {
                     </div>
                 )
             ))}
+
         </section>
     );
 }

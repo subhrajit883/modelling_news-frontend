@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { categoryUrl, newsUrl } from "../../../config/config";
+import { newsUrl } from "../../../config/config";
 
 const FeaturedNews = () => {
     const [news, setNews] = useState([])
-    const [categories, setCategories] = useState([])
+
+
     const FeaturedNews = async (req, res) => {
         try {
-            const res = await axios.get(newsUrl.getAll)
+            const res = await axios.get(newsUrl.getFeatured)
             setNews(res.data.data);
             console.log(res.data.data);
         } catch (err) {
@@ -15,40 +16,10 @@ const FeaturedNews = () => {
         }
     }
 
-
-    const GetCatWise = async (categoryId) => {
-        console.log("inside cat");
-        try {
-            const res = await axios.get(`${newsUrl.getCatWise}/${categoryId}`);
-            // setNews(res.data.data);
-            console.log("cat wise data", res.data.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    const fetchCategories = async () => {
-        try {
-            const res = await axios.get(categoryUrl.getAll);
-            const categoriesData = res.data.data;
-            setCategories(categoriesData);
-            console.log("cat", categoriesData);
-            
-            if (categoriesData && categoriesData.length > 0) {
-                const categoryIds = categoriesData.map(cat => cat._id);
-                categoryIds.forEach(id => {
-                    GetCatWise(id);
-                });
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
     useEffect(() => {
-        FeaturedNews();
-        fetchCategories();
-    }, []);
+        FeaturedNews()
+
+    }, [])
 
     return (
         <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
@@ -77,10 +48,10 @@ const FeaturedNews = () => {
                                 {news[0].title}
                             </h2>
 
-                            <div
+                            {/* <div
                                 className="prose prose-invert max-w-none group-hover:text-red-600 transition-colors duration-500"
-                                dangerouslySetInnerHTML={{ __html: news[0].content }}
-                            />
+                                dangerouslySetInnerHTML={{ __html: news[0].content.slice(0, 10) + "..." }}
+                            /> */}
                             <div className="text-sm text-gray-300 group-hover:text-red-600 transition-colors duration-500">
                                 {new Date(news[0].publishedDate).toLocaleDateString("en-GB")}
                             </div>

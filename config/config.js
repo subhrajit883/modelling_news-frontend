@@ -9,12 +9,14 @@ export const authUrl = {
 export const newsUrl = {
   create: `${BASE_URL}/news`,
   getAll: `${BASE_URL}/news`,
-  getById: `${BASE_URL}/news/:id`,
+  getById: `${BASE_URL}/news`,
   getBySlug: `${BASE_URL}/news/slug/:slug`,
-  update: `${BASE_URL}/news/:id`,
-  delete: `${BASE_URL}/news/:id`,
+  update: `${BASE_URL}/news`,
+  delete: `${BASE_URL}/news`,
   recent: `${BASE_URL}/news/recent`,
   getCatWise: `${BASE_URL}/news/categorywise`,
+  getFeatured: `${BASE_URL}/news/featured`,
+  getTrending: `${BASE_URL}/news/trending`
 }
 
 export const categoryUrl = {

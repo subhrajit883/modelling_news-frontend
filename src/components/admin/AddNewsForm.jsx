@@ -1,6 +1,27 @@
 import React, { useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
+
+const QUILL_MODULES = {
+    toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        ['blockquote', 'code-block'],
+        ['link'],
+        [{ color: [] }, { background: [] }],
+        ['clean'],
+    ],
+};
+
+const QUILL_FORMATS = [
+    'header', 'bold', 'italic', 'underline', 'strike',
+    'list', 'bullet', 'indent', 'blockquote', 'code-block',
+    'link', 'color', 'background',
+];
 
 const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) => {
     const [formData, setFormData] = useState({
@@ -10,7 +31,9 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
         year: '',
         category: '',
         country: '',
-        thumbnail: null
+        thumbnail: null,
+        featuredNews: false,
+        trendingNews: false,
     });
     console.log("years1", years);
     console.log("countries", countries);
@@ -18,8 +41,11 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
     const [previewUrl, setPreviewUrl] = useState(null);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
     };
 
     const handleFileChange = (e) => {
@@ -46,10 +72,12 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
         const dateObj = new Date(formData.publishedDate);
         submitData.append('publishedDate', dateObj.toISOString());
 
-        submitData.append('content', `<p>${formData.content}</p>`);
+        submitData.append('content', formData.content);
         submitData.append('year', formData.year);
         submitData.append('category', formData.category);
         submitData.append('country', formData.country);
+        submitData.append('featuredNews', formData.featuredNews);
+        submitData.append('trendingNews', formData.trendingNews);
         submitData.append('thumbnail', formData.thumbnail);
 
         await onSubmit(submitData);
@@ -97,30 +125,19 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                     <label className="block text-sm font-semibold text-gray-700 mb-1">
                         Content <span className="text-red-500">*</span>
                     </label>
-                    {/* Basic Rich Text Toolbar Mockup */}
-                    <div className="border border-gray-200 rounded overflow-hidden focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500 transition-colors">
-                        <div className="bg-gray-50 border-b border-gray-200 p-2 flex items-center space-x-2 text-gray-600">
-                            <select className="bg-transparent text-sm outline-none cursor-pointer">
-                                <option>Paragraph</option>
-                                <option>Heading 1</option>
-                                <option>Heading 2</option>
-                            </select>
-                            <span className="w-px h-4 bg-gray-300 mx-2"></span>
-                            <button type="button" className="p-1 hover:bg-gray-200 rounded font-serif font-bold">B</button>
-                            <button type="button" className="p-1 hover:bg-gray-200 rounded font-serif italic">I</button>
-                            <button type="button" className="p-1 hover:bg-gray-200 rounded font-serif underline">U</button>
-                            <span className="w-px h-4 bg-gray-300 mx-2"></span>
-                            <button type="button" className="p-1 hover:bg-gray-200 rounded text-xs">&bull;&bull;&bull;</button>
-                        </div>
-                        <textarea
-                            name="content"
+                    <div className="rounded  transition-colors focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500">
+                        <ReactQuill
+                            theme="snow"
                             value={formData.content}
-                            onChange={handleChange}
+                            onChange={(value) => setFormData(prev => ({
+                                ...prev,
+                                content: value,
+                            }))}
+                            modules={QUILL_MODULES}
+                            formats={QUILL_FORMATS}
                             placeholder="Write your content here..."
-                            rows="6"
-                            className="w-full p-3 text-sm outline-none resize-y"
-                            required
-                        ></textarea>
+                            style={{ minHeight: '150px' }}
+                        />
                     </div>
                 </div>
 
@@ -207,6 +224,31 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                             </>
                         )}
                     </div>
+                </div>
+
+                {/* Featured / Trending */}
+                <div className="flex flex-wrap gap-6">
+                    <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            name="featuredNews"
+                            checked={formData.featuredNews}
+                            onChange={handleChange}
+                            className="h-4 w-4"
+                        />
+                        Featured News
+                    </label>
+
+                    <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            name="trendingNews"
+                            checked={formData.trendingNews}
+                            onChange={handleChange}
+                            className="h-4 w-4"
+                        />
+                        Trending News
+                    </label>
                 </div>
 
                 {/* Action Buttons */}
