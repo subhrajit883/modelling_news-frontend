@@ -3,6 +3,7 @@ import { FiUploadCloud } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
 
 const QUILL_MODULES = {
     toolbar: [
@@ -23,6 +24,8 @@ const QUILL_FORMATS = [
     'link', 'color', 'background',
 ];
 
+
+
 const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) => {
     const [formData, setFormData] = useState({
         title: '',
@@ -35,9 +38,6 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
         featuredNews: false,
         trendingNews: false,
     });
-    console.log("years1", years);
-    console.log("countries", countries);
-    console.log("categories", categories);
     const [previewUrl, setPreviewUrl] = useState(null);
 
     const handleChange = (e) => {
@@ -55,6 +55,8 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
             setPreviewUrl(URL.createObjectURL(file));
         }
     };
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -86,12 +88,22 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">Add News Post</h2>
+            <div className=" flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-800 ">Add News Post</h2>
+                <button
+                    onClick={() => navigate("/admin/news")}
+                    className="flex items-center cursor-pointer rounded bg-[#DC2626] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                >
+                    View All Posts
+                </button>
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+
+
+            <form onSubmit={handleSubmit} className="space-y-5 mt-6 ">
                 {/* Title */}
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label className="block text-md font-semibold text-gray-700 mb-1">
                         Title <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -100,14 +112,14 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                         value={formData.title}
                         onChange={handleChange}
                         placeholder="Enter post title"
-                        className="w-full border border-gray-200 rounded p-2.5 text-sm focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors"
+                        className="w-full border border-gray-200 rounded p-2.5 text-md focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors"
                         required
                     />
                 </div>
 
                 {/* Published Date */}
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label className="block text-md font-semibold text-gray-700 mb-1">
                         Published Date <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -115,14 +127,14 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                         name="publishedDate"
                         value={formData.publishedDate}
                         onChange={handleChange}
-                        className="w-full border border-gray-200 rounded p-2.5 text-sm focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors"
+                        className="w-full border border-gray-200 rounded p-2.5 text-md focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-colors"
                         required
                     />
                 </div>
 
                 {/* Content */}
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label className="block text-md font-semibold text-gray-700 mb-1">
                         Content <span className="text-red-500">*</span>
                     </label>
                     <div className="rounded  transition-colors focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500">
@@ -136,7 +148,7 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                             modules={QUILL_MODULES}
                             formats={QUILL_FORMATS}
                             placeholder="Write your content here..."
-                            style={{ minHeight: '150px' }}
+                            style={{ minHeight: '100px' }}
                         />
                     </div>
                 </div>
@@ -144,7 +156,7 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                 {/* Grid for Year and Category */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        <label className="block text-md font-semibold text-gray-700 mb-1">
                             Year <span className="text-red-500">*</span>
                         </label>
                         <select
@@ -161,7 +173,7 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        <label className="block text-md font-semibold text-gray-700 mb-1">
                             Category <span className="text-red-500">*</span>
                         </label>
                         <select
@@ -181,7 +193,7 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
 
                 {/* Country */}
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label className="block text-md font-semibold text-gray-700 mb-1">
                         Country <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -200,7 +212,7 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
 
                 {/* Thumbnail */}
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label className="block text-md font-semibold text-gray-700 mb-1">
                         Thumbnail <span className="text-red-500">*</span>
                     </label>
 

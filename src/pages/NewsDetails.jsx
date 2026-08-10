@@ -130,7 +130,7 @@ const NewsDetails = () => {
                         </>
                     )}
 
-                    <span className="line-clamp-1 text-gray-900 capitalize text-red-600 ">
+                    <span className="line-clamp-1 capitalize text-red-600">
                         {news.title}
                     </span>
 

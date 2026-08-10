@@ -6,6 +6,7 @@ import { newsUrl } from "../../../config/config";
 import { FiEdit2, FiTrash2, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import toast from "react-hot-toast";
 import EditNewsModal from "./EditNewsModal";
+import { FaArrowLeft } from "react-icons/fa";
 
 function NewsPost() {
     const navigate = useNavigate();
@@ -25,7 +26,8 @@ function NewsPost() {
 
             const res = await axios.get(newsUrl.getAll, {
                 params: {
-                    page,
+                    page,   
+                    limit: 10, // Adjust the limit as needed
                 },
             });
 
@@ -113,10 +115,10 @@ function NewsPost() {
                 </div>
 
                 <button
-                    onClick={() => navigate("/admin/add-news")}
-                    className="flex items-center rounded bg-[#DC2626] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                    onClick={() => navigate("/admin")}
+                    className="flex items-center cursor-pointer rounded bg-[#DC2626] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
                 >
-                    + Add News
+                    <FaArrowLeft /> Back to Dashboard
                 </button>
             </div>
 
@@ -191,7 +193,7 @@ function NewsPost() {
                                     </td>
 
                                     {/* Title */}
-                                    <td className="max-w-[220px] p-4">
+                                    <td className="max-w-55 p-4">
                                         <p className="line-clamp-2 text-sm font-semibold text-gray-800">
                                             {row.title}
                                         </p>
@@ -224,14 +226,14 @@ function NewsPost() {
                                     </td>
 
                                     {/* Description */}
-<td className="max-w-[250px] p-4 text-sm text-gray-500">
-    <div
-        className="line-clamp-3 prose prose-sm max-w-none"
-        dangerouslySetInnerHTML={{
-            __html: row.content,
-        }}
-    />
-</td>
+                                    <td className="max-w-62.5 p-4 text-sm text-gray-500">
+                                        <div
+                                            className="line-clamp-3 prose prose-sm max-w-none"
+                                            dangerouslySetInnerHTML={{
+                                                __html: row.content,
+                                            }}
+                                        />
+                                    </td>
 
                                     {/* Actions */}
                                     <td className="p-4">

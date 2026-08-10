@@ -42,11 +42,11 @@ const DashboardTable = ({ title, columns, data, onAdd, onEdit, onDelete, addText
                                     ))}
                                     <td className="p-4 text-sm text-right">
                                         <div className="flex items-center justify-end space-x-2">
-                                            {onEdit && (
+                                            {/* {onEdit && (
                                                 <button onClick={() => onEdit(row)} className="p-2 text-gray-500 hover:text-blue-600 border border-gray-200 rounded hover:border-blue-600 transition-colors">
                                                     <FiEdit2 size={14} />
                                                 </button>
-                                            )}
+                                            )} */}
                                             {onDelete && (
                                                 <button onClick={() => onDelete(row)} className="p-2 text-gray-500 hover:text-red-600 border border-gray-200 rounded hover:border-red-600 transition-colors">
                                                     <FiTrash2 size={14} />
@@ -66,11 +66,11 @@ const DashboardTable = ({ title, columns, data, onAdd, onEdit, onDelete, addText
                     </tbody>
                 </table>
             </div>
-            <div className="p-4 border-t border-gray-100 text-center">
+            {/* <div className="p-4 border-t border-gray-100 text-center">
                 <button className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                     View all {title.toLowerCase()} &rarr;
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 };

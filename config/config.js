@@ -24,7 +24,7 @@ export const categoryUrl = {
   getAll: `${BASE_URL}/categories`,
   getById: `${BASE_URL}/categories/:id`,
   update: `${BASE_URL}/categories/:id`,
-  delete: `${BASE_URL}/categories/:id`,
+  delete: `${BASE_URL}/categories`,
 }
 
 export const countryUrl = {
@@ -32,7 +32,7 @@ export const countryUrl = {
   getAll: `${BASE_URL}/countries`,
   getById: `${BASE_URL}/countries/:id`,
   update: `${BASE_URL}/countries/:id`,
-  delete: `${BASE_URL}/countries/:id`,
+  delete: `${BASE_URL}/countries`,
 }
 
 export const yearUrl = {

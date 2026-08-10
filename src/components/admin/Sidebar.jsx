@@ -13,6 +13,9 @@ import {
     FiLogOut
 } from 'react-icons/fi';
 
+import logo from "../../assets/MODELLING (2).png";
+
+
 const Sidebar = ({ isOpen }) => {
     const navItems = [
         { title: 'CONTENT' },
@@ -37,7 +40,7 @@ const Sidebar = ({ isOpen }) => {
     return (
         <aside className={`${isOpen ? 'w-64' : 'w-0'} transition-all duration-300 ease-in-out bg-[#1A1C23] text-gray-300 h-full flex flex-col overflow-hidden shadow-xl z-20`}>
             <div className="flex items-center justify-center h-16 bg-[#15171C] border-b border-gray-800 shrink-0 px-4">
-                <span className="text-white text-xl font-bold tracking-wider truncate">MODELLING NEWS</span>
+               <img src={logo} alt="Logo" className="w-full h-full object-contain" />
             </div>
 
             <div className="flex-1 overflow-y-auto py-4 custom-scrollbar">
@@ -57,7 +60,7 @@ const Sidebar = ({ isOpen }) => {
                                 end={item.isExact}
                                 className={({ isActive }) =>
                                     `flex items-center px-6 py-3 text-sm font-medium transition-colors ${isActive
-                                        ? ' text-white border-l-4 border-white'
+                                        ? ' text-gray-500 border-l-4 border-white'
                                         : 'hover:bg-gray-800 hover:text-white border-l-4 border-transparent'
                                     }`
                                 }

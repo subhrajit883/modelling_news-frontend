@@ -101,6 +101,38 @@ function Dashboard() {
         }
     };
 
+    const handleDeleteCategory = async (categoryId) => {
+        const isConfirmed = window.confirm(
+            "Sure you want to delete this category?"
+        );
+
+        if (!isConfirmed) {
+            return;
+        }
+
+        const AuthToken = localStorage.getItem("token");
+
+        try {
+            console.log("Deleting category with ID:", categoryId);
+
+            await axios.delete(`${categoryUrl.delete}/${categoryId}`, {
+                headers: {
+                    Authorization: `Bearer ${AuthToken}`,
+                },
+            });
+
+            toast.success("Category deleted successfully!");
+
+            fetchData();
+        } catch (error) {
+            console.error("Error deleting category:", error);
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to delete category"
+            );
+        }
+    };
+
     const handleAddCountry = async (payload) => {
         setIsSubmittingCountry(true);
         const AuthToken = localStorage.getItem("token");
@@ -122,17 +154,40 @@ function Dashboard() {
         }
     };
 
+    const handleDeleteCountry = async (countryId) => {
+        const isConfirmed = window.confirm(
+            "Sure you want to delete this country?"
+        );
+
+        if (!isConfirmed) {
+            return;
+        }
+
+        try {
+            const AuthToken = localStorage.getItem("token");
+            await axios.delete(`${countryUrl.delete}/${countryId}`, {
+                headers: {
+                    Authorization: `Bearer ${AuthToken}`,
+                },
+            });
+            toast.success("Country deleted successfully!");
+            fetchData();
+        } catch (error) {
+            console.error("Error deleting country:", error);
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to delete country"
+            );
+        }
+    }
+
     // Table Columns Config
     const categoryColumns = [
-        // { header: '#', render: (_, index) => index + 1 },
         { header: 'Name', accessor: 'name' },
-        // { header: 'Slug', accessor: 'slug' }
     ];
 
     const countryColumns = [
-        // { header: '#', render: (_, index) => index + 1 },
         { header: 'Name', accessor: 'name' },
-        // { header: 'Code', accessor: 'code', render: (row) => row.code || 'N/A' } // Fallback if no code
     ];
 
     if (isLoading) {
@@ -176,21 +231,21 @@ function Dashboard() {
                     <DashboardTable
                         title="Categories"
                         columns={categoryColumns}
-                        data={categories.slice(0, 5)} // Show top 5 for dashboard
+                        data={categories.slice(0, 10)} // Show top 10 for dashboard
                         addText="Add Category"
                         onAdd={() => setIsCategoryModalOpen(true)}
                         onEdit={(row) => console.log('Edit Category', row)}
-                        onDelete={(row) => console.log('Delete Category', row)}
+                        onDelete={(row) => handleDeleteCategory(row._id)}
                     />
 
                     <DashboardTable
                         title="Countries"
                         columns={countryColumns}
-                        data={countries.slice(0, 5)} // Show top 5 for dashboard
+                        data={countries.slice(0, 10)} // Show top 5 for dashboard
                         addText="Add Country"
                         onAdd={() => setIsCountryModalOpen(true)}
                         onEdit={(row) => console.log('Edit Country', row)}
-                        onDelete={(row) => console.log('Delete Country', row)}
+                        onDelete={(row) => handleDeleteCountry(row._id)}
                     />
                 </div>
 
