@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { newsUrl } from "../../../config/config";
+import { Link } from "react-router-dom";
 
 const FeaturedNews = () => {
     const [news, setNews] = useState([])
@@ -26,7 +27,12 @@ const FeaturedNews = () => {
             {/* Featured News */}
             <div className="lg:col-span-2 ">
                 {news.length > 0 ? (
+
                     <div className="group relative h-130 overflow-hidden rounded hover:text-red-600 hover:text-2xl duration-500">
+                                                 <Link
+            to={`/news/${news[0].slug}`}
+            className="group overflow-hidden rounded-lg bg-white shadow transition hover:-translate-y-1 hover:shadow-xl"
+        >
                         <img
                             src={news[0].thumbnail.url}
                             alt={news[0].title}
@@ -56,7 +62,9 @@ const FeaturedNews = () => {
                                 {new Date(news[0].publishedDate).toLocaleDateString("en-GB")}
                             </div>
                         </div>
+                            </Link>
                     </div>
+                
                 ) : (
                     <div className="flex h-130 items-center justify-center rounded bg-gray-100">
                         No Featured News
@@ -71,6 +79,10 @@ const FeaturedNews = () => {
                         key={item._id}
                         className="group relative h-63.25 overflow-hidden rounded hover:text-red-600 hover:text-2xl duration-500"
                     >
+                                                                <Link
+            to={`/news/${item.slug}`}
+            className="group overflow-hidden rounded-lg bg-white shadow transition hover:-translate-y-1 hover:shadow-xl"
+        >
                         <img
                             src={item.thumbnail.url}
                             alt={item.title}
@@ -92,6 +104,7 @@ const FeaturedNews = () => {
                                 {new Date(item.publishedDate).toLocaleDateString("en-GB")}
                             </p>
                         </div>
+                        </Link>
                     </div>
                 ))}
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, NavLink } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import {
     FiHome,
     FiFileText,
@@ -14,6 +14,7 @@ import {
 } from 'react-icons/fi';
 
 import logo from "../../assets/MODELLING (2).png";
+
 
 
 const Sidebar = ({ isOpen }) => {
@@ -32,10 +33,12 @@ const Sidebar = ({ isOpen }) => {
         { name: 'Settings', path: '/admin', icon: <FiSettings /> },
     ];
 
+    const navigate = useNavigate();
     const logout = () => {
         localStorage.removeItem('token');
-        Navigate('/');
+        navigate('/admin/login');
     };
+
 
     return (
         <aside className={`${isOpen ? 'w-64' : 'w-0'} transition-all duration-300 ease-in-out bg-[#1A1C23] text-gray-300 h-full flex flex-col overflow-hidden shadow-xl z-20`}>

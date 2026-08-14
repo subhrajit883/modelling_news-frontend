@@ -26,6 +26,8 @@ function Dashboard() {
     // Modal State
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [isCountryModalOpen, setIsCountryModalOpen] = useState(false);
+    const [editingCategory, setEditingCategory] = useState(null);
+    const [editingCountry, setEditingCountry] = useState(null);
 
     // Fetch Data
     const fetchData = async () => {
@@ -86,7 +88,6 @@ function Dashboard() {
         try {
             await axios.post(categoryUrl.create, payload, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${AuthToken}`
                 }
             });
@@ -96,6 +97,25 @@ function Dashboard() {
         } catch (error) {
             console.error("Error adding category:", error);
             toast.error(error.response?.data?.message || "Failed to add category");
+        } finally {
+            setIsSubmittingCategory(false);
+        }
+    };
+
+    const handleEditCategory = async (payload) => {
+        setIsSubmittingCategory(true);
+        const AuthToken = localStorage.getItem("token");
+        try {
+            await axios.put(`${categoryUrl.update}/${editingCategory._id}`, payload, {
+                headers: { Authorization: `Bearer ${AuthToken}` }
+            });
+            toast.success("Category updated successfully!");
+            setEditingCategory(null);
+            setIsCategoryModalOpen(false);
+            fetchData();
+        } catch (error) {
+            console.error("Error updating category:", error);
+            toast.error(error.response?.data?.message || "Failed to update category");
         } finally {
             setIsSubmittingCategory(false);
         }
@@ -139,7 +159,6 @@ function Dashboard() {
         try {
             await axios.post(countryUrl.create, payload, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${AuthToken}`
                 }
             });
@@ -149,6 +168,25 @@ function Dashboard() {
         } catch (error) {
             console.error("Error adding country:", error);
             toast.error(error.response?.data?.message || "Failed to add country");
+        } finally {
+            setIsSubmittingCountry(false);
+        }
+    };
+
+    const handleEditCountry = async (payload) => {
+        setIsSubmittingCountry(true);
+        const AuthToken = localStorage.getItem("token");
+        try {
+            await axios.put(`${countryUrl.update}/${editingCountry._id}`, payload, {
+                headers: { Authorization: `Bearer ${AuthToken}` }
+            });
+            toast.success("Country updated successfully!");
+            setEditingCountry(null);
+            setIsCountryModalOpen(false);
+            fetchData();
+        } catch (error) {
+            console.error("Error updating country:", error);
+            toast.error(error.response?.data?.message || "Failed to update country");
         } finally {
             setIsSubmittingCountry(false);
         }
@@ -234,7 +272,7 @@ function Dashboard() {
                         data={categories.slice(0, 10)} // Show top 10 for dashboard
                         addText="Add Category"
                         onAdd={() => setIsCategoryModalOpen(true)}
-                        onEdit={(row) => console.log('Edit Category', row)}
+                        onEdit={(row) => { setEditingCategory(row); setIsCategoryModalOpen(true); }}
                         onDelete={(row) => handleDeleteCategory(row._id)}
                     />
 
@@ -244,7 +282,7 @@ function Dashboard() {
                         data={countries.slice(0, 10)} // Show top 5 for dashboard
                         addText="Add Country"
                         onAdd={() => setIsCountryModalOpen(true)}
-                        onEdit={(row) => console.log('Edit Country', row)}
+                        onEdit={(row) => { setEditingCountry(row); setIsCountryModalOpen(true); }}
                         onDelete={(row) => handleDeleteCountry(row._id)}
                     />
                 </div>
@@ -264,16 +302,18 @@ function Dashboard() {
             {/* Modals */}
             <AddCategoryModal
                 isOpen={isCategoryModalOpen}
-                onClose={() => setIsCategoryModalOpen(false)}
-                onSubmit={handleAddCategory}
+                onClose={() => { setIsCategoryModalOpen(false); setEditingCategory(null); }}
+                onSubmit={editingCategory ? handleEditCategory : handleAddCategory}
                 isSubmitting={isSubmittingCategory}
+                initialData={editingCategory}
             />
 
             <AddCountryModal
                 isOpen={isCountryModalOpen}
-                onClose={() => setIsCountryModalOpen(false)}
-                onSubmit={handleAddCountry}
+                onClose={() => { setIsCountryModalOpen(false); setEditingCountry(null); }}
+                onSubmit={editingCountry ? handleEditCountry : handleAddCountry}
                 isSubmitting={isSubmittingCountry}
+                initialData={editingCountry}
             />
         </div>
     );

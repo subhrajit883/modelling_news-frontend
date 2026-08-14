@@ -65,9 +65,7 @@ const NewsDetails = () => {
         return (
 
             <div className="flex min-h-screen items-center justify-center">
-
                 <div className="h-16 w-16 animate-spin rounded-full border-4 border-red-600 border-t-transparent"></div>
-
             </div>
 
         );
@@ -130,6 +128,7 @@ const NewsDetails = () => {
                         </>
                     )}
 
+
                     <span className="line-clamp-1 capitalize text-red-600">
                         {news.title}
                     </span>
@@ -145,15 +144,12 @@ const NewsDetails = () => {
                 {news.category && (
 
                     <span className="rounded bg-red-600 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-white libertinus-serif-bold">
-
                         {news.category.name}
-
                     </span>
 
                 )}
 
                 <h1 className="mt-8 text-3xl font-black leading-tight text-gray-900 md:text-5xl playfair-display-regular ">
-
                     {news.title}
                 </h1>
 
@@ -175,7 +171,6 @@ const NewsDetails = () => {
                             )}
 
                         </div>
-
                     )}
 
                     {news.country && (
@@ -211,12 +206,12 @@ const NewsDetails = () => {
                     <img
                         src={news.thumbnail.url}
                         alt={news.title}
-                        className="h-[300px] w-full rounded-xl object-cover shadow-lg md:h-[450px]"
+                        className="h-75 w-full rounded-xl object-contain md:h-112.5"
                     />
 
                 ) : (
 
-                    <div className="flex h-[650px] items-center justify-center rounded-xl bg-gray-100">
+                    <div className="flex h-162.5 items-center justify-center rounded-xl bg-gray-100">
 
                         <span className="text-gray-400">
 
@@ -235,11 +230,11 @@ const NewsDetails = () => {
 
                 {/* Main Content */}
 
-                <div className="lg:col-span-8">
+                <div className="min-w-0 lg:col-span-8">
 
                     <div
                         className="
-                        manrope-regular text-base leading-relaxed tracking-wider text-gray-600
+                        article-content manrope-regular text-base leading-relaxed tracking-wider text-gray-600
                     "
                         dangerouslySetInnerHTML={{
                             __html: news.content,
@@ -335,7 +330,7 @@ const NewsDetails = () => {
 
                 {/* Sidebar */}
 
-                <aside className="lg:col-span-4">
+                <aside className="min-w-0 lg:col-span-4">
 
                     {/* Advertisement */}
 

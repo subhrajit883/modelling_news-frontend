@@ -37,7 +37,7 @@ function CategoryWiseNews() {
                 catGroup.news && catGroup.news.length > 0 && (
                     <div key={catGroup.categoryId} className="mb-10">
                         <h2 className="mb-6 border-l-4 border-red-600 pl-3 text-3xl libertinus-serif-semibold uppercase">
-                            {catGroup.categoryName}
+                        {catGroup.categoryName}
                         </h2>
                         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                             {catGroup.news.slice(0, 4).map((item) => (

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const AddCategoryModal = ({ isOpen, onClose, onSubmit, isSubmitting }) => {
+const AddCategoryModal = ({ isOpen, onClose, onSubmit, isSubmitting, initialData }) => {
     const [name, setName] = useState('');
+
+    useEffect(() => {
+        setName(initialData?.name || '');
+    }, [initialData, isOpen]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +26,7 @@ const AddCategoryModal = ({ isOpen, onClose, onSubmit, isSubmitting }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-gray-800">Add New Category</h3>
+                    <h3 className="text-lg font-bold text-gray-800">{initialData ? 'Edit Category' : 'Add New Category'}</h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">&times;</button>
                 </div>
                 
@@ -57,7 +61,7 @@ const AddCategoryModal = ({ isOpen, onClose, onSubmit, isSubmitting }) => {
                             {isSubmitting ? (
                                 <span className="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
                             ) : null}
-                            Save Category
+                            {initialData ? 'Update Category' : 'Save Category'}
                         </button>
                     </div>
                 </form>

@@ -23,6 +23,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import MainLayout from "../Layout/MainLayout";
 import AdminLayout from "../components/admin/AdminLayout";
 import NewsPost from "../pages/admin/NewsPost";
+import CategoryWiseNews from "../components/home/CategoryWiseNews";
 
 const AppRoute = () => {
     return (

@@ -67,8 +67,6 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
             toast.error("Please fill all required fields and upload a thumbnail.");
             return;
         }
-
-
         const submitData = new FormData();
         submitData.append('title', formData.title);
         const dateObj = new Date(formData.publishedDate);
@@ -83,7 +81,6 @@ const AddNewsForm = ({ categories, countries, years, onSubmit, isSubmitting }) =
         submitData.append('thumbnail', formData.thumbnail);
 
         await onSubmit(submitData);
-
     };
 
     return (

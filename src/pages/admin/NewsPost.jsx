@@ -90,7 +90,6 @@ function NewsPost() {
     const truncateText = (text, length = 60) => {
         if (!text) return "-";
 
-        // Remove HTML tags if content contains HTML
         const plainText = text.replace(/<[^>]*>/g, "");
 
         if (plainText.length <= length) {

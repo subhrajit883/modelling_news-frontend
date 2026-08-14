@@ -23,7 +23,7 @@ export const categoryUrl = {
   create: `${BASE_URL}/categories`,
   getAll: `${BASE_URL}/categories`,
   getById: `${BASE_URL}/categories/:id`,
-  update: `${BASE_URL}/categories/:id`,
+  update: `${BASE_URL}/categories`,
   delete: `${BASE_URL}/categories`,
 }
 
@@ -31,7 +31,7 @@ export const countryUrl = {
   create: `${BASE_URL}/countries`,
   getAll: `${BASE_URL}/countries`,
   getById: `${BASE_URL}/countries/:id`,
-  update: `${BASE_URL}/countries/:id`,
+  update: `${BASE_URL}/countries`,
   delete: `${BASE_URL}/countries`,
 }
 

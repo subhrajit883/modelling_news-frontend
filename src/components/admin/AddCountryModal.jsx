@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const AddCountryModal = ({ isOpen, onClose, onSubmit, isSubmitting }) => {
+const AddCountryModal = ({ isOpen, onClose, onSubmit, isSubmitting, initialData }) => {
     const [name, setName] = useState('');
     const [code, setCode] = useState('');
+
+    useEffect(() => {
+        setName(initialData?.name || '');
+        setCode('');
+    }, [initialData, isOpen]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +31,7 @@ const AddCountryModal = ({ isOpen, onClose, onSubmit, isSubmitting }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-gray-800">Add New Country</h3>
+                    <h3 className="text-lg font-bold text-gray-800">{initialData ? 'Edit Country' : 'Add New Country'}</h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">&times;</button>
                 </div>
                 
@@ -64,7 +69,7 @@ const AddCountryModal = ({ isOpen, onClose, onSubmit, isSubmitting }) => {
                             {isSubmitting ? (
                                 <span className="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
                             ) : null}
-                            Save Country
+                            {initialData ? 'Update Country' : 'Save Country'}
                         </button>
                     </div>
                 </form>
