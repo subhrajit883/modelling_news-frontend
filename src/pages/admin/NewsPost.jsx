@@ -7,6 +7,7 @@ import { FiEdit2, FiTrash2, FiChevronLeft, FiChevronRight } from "react-icons/fi
 import toast from "react-hot-toast";
 import EditNewsModal from "./EditNewsModal";
 import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowTrendUp } from "react-icons/fa6";
 
 function NewsPost() {
     const navigate = useNavigate();
@@ -137,6 +138,7 @@ function NewsPost() {
                             <th className="whitespace-nowrap p-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
                                 Category
                             </th>
+                        
 
                             <th className="whitespace-nowrap p-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
                                 Country
@@ -150,10 +152,10 @@ function NewsPost() {
                                 Published Date
                             </th>
 
-                            <th className="whitespace-nowrap p-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            {/* <th className="whitespace-nowrap p-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
                                 Description
-                            </th>
-
+                            </th> */}
+      
                             <th className="whitespace-nowrap p-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
                                 Actions
                             </th>
@@ -203,12 +205,35 @@ function NewsPost() {
                                     </td>
 
                                     {/* Category */}
-                                    <td className="p-4">
-                                        <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-600">
-                                            {row.category?.name || "-"}
-                                        </span>
-                                    </td>
+                          <td className="p-4">
+    <div className="flex flex-wrap  flex-col items-start gap-2">
 
+        {/* Category */}
+        <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600">
+            {row.category?.name || "-"}
+        </span>
+
+        {/* Status badges */}
+        {/* <div className=""> */}
+
+            {row.featuredNews && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700 ring-1 ring-inset ring-amber-200">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                    Featured
+                </span>
+            )}
+
+            {row.trendingNews && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
+                 
+                    <FaArrowTrendUp />Trending
+                </span>
+            )}
+
+        {/* </div> */}
+    </div>
+</td>
+                           
                                     {/* Country */}
                                     <td className="p-4 text-sm text-gray-700">
                                         {row.country?.name || "-"}
@@ -225,14 +250,14 @@ function NewsPost() {
                                     </td>
 
                                     {/* Description */}
-                                    <td className="max-w-62.5 p-4 text-sm text-gray-500">
+                                    {/* <td className="max-w-62.5 p-4 text-sm text-gray-500">
                                         <div
                                             className="line-clamp-3 prose prose-sm max-w-none"
                                             dangerouslySetInnerHTML={{
                                                 __html: row.content,
                                             }}
                                         />
-                                    </td>
+                                    </td> */}
 
                                     {/* Actions */}
                                     <td className="p-4">

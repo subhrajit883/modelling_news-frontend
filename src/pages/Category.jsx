@@ -11,54 +11,55 @@ function Category() {
     const [category, setCategory] = useState(null);
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
-const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
-const newsPerPage = 6;
-const totalPages = Math.ceil(news.length / newsPerPage);
-const startIndex = (currentPage - 1) * newsPerPage;
-const endIndex = startIndex + newsPerPage;
-const currentNews = news.slice(startIndex, endIndex);
+    const newsPerPage = 6;
+    const totalPages = Math.ceil(news.length / newsPerPage);
+    const startIndex = (currentPage - 1) * newsPerPage;
+    const endIndex = startIndex + newsPerPage;
+    const currentNews = news.slice(startIndex, endIndex);
 
-          const fetchCategoryData = async () => {
-            setLoading(true);
-            try {
-                // Fetch category info to get the name and id
-                const catRes = await axios.get(categoryUrl.getAll);
-                const categories = Array.isArray(catRes.data?.data) ? catRes.data.data : [];
-                const currentCategory = categories.find(c => c.slug === slug);
-                setCategory(currentCategory || null);
+    const fetchCategoryData = async () => {
+        setLoading(true);
+        try {
+            // Fetch category info to get the name and id
+            const catRes = await axios.get(categoryUrl.getAll);
+            const categories = Array.isArray(catRes.data?.data) ? catRes.data.data : [];
+            const currentCategory = categories.find(c => c.slug === slug);
+            setCategory(currentCategory || null);
 
-                // If we have the category id, call the category-wise endpoint
-                if (currentCategory && currentCategory._id) {
-                    try {
-                        const catNewsRes = await axios.get(`${newsUrl.getCatWise}/${currentCategory._id}`);
-                        const categoryNews = Array.isArray(catNewsRes.data?.data) ? catNewsRes.data.data : [];
-                        setNews(categoryNews);
-                        console.log('categoryNews (from categorywise API)', categoryNews);
-                    } catch (err) {
-                        console.log('Error fetching category-wise news, falling back to all-news filter:', err);
-                        // fallback to fetching all news and filtering by slug
-                        const newsRes = await axios.get(newsUrl.getAll);
-                        const allNews = Array.isArray(newsRes.data?.data) ? newsRes.data.data : [];
-                        const categoryNews = allNews.filter(n => n.category && n.category.slug === slug);
-                        setNews(categoryNews);
-                    }
-                } else {
-                    // No category id found — fallback to fetching all news and filtering by slug
+            // If we have the category id, call the category-wise endpoint
+            if (currentCategory && currentCategory._id) {
+                
+                try {
+                    const catNewsRes = await axios.get(`${newsUrl.getCatWise}/${currentCategory._id}`);
+                    const categoryNews = Array.isArray(catNewsRes.data?.data) ? catNewsRes.data.data : [];
+                    setNews(categoryNews);
+                    console.log('categoryNews (from categorywise API)', categoryNews);
+                } catch (err) {
+                    console.log('Error fetching category-wise news, falling back to all-news filter:', err);
+                    // fallback to fetching all news and filtering by slug
                     const newsRes = await axios.get(newsUrl.getAll);
                     const allNews = Array.isArray(newsRes.data?.data) ? newsRes.data.data : [];
                     const categoryNews = allNews.filter(n => n.category && n.category.slug === slug);
                     setNews(categoryNews);
                 }
-            } catch (err) {
-                console.log("Error fetching category data:", err);
-            } finally {
-                setLoading(false);
+            } else {
+                // No category id found — fallback to fetching all news and filtering by slug
+                const newsRes = await axios.get(newsUrl.getAll);
+                const allNews = Array.isArray(newsRes.data?.data) ? newsRes.data.data : [];
+                const categoryNews = allNews.filter(n => n.category && n.category.slug === slug);
+                setNews(categoryNews);
             }
-        };
- 
+        } catch (err) {
+            console.log("Error fetching category data:", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-            setCurrentPage(1);
+        setCurrentPage(1);
         fetchCategoryData();
     }, [slug]);
 
@@ -72,9 +73,9 @@ const currentNews = news.slice(startIndex, endIndex);
 
     return (
         <div className=" pb-12 pt-6 min-h-screen min-h-screen bg-cover bg-center bg-no-repeat pb-12 pt-6"
-            style={{ backgroundImage: `url(${bg})`  }}
+            style={{ backgroundImage: `url(${bg})` }}
         >
-          
+
             <div className="mx-auto max-w-7xl px-5">
                 {/* Breadcrumb */}
                 <div className="mb-6 text-md text-gray-500 libertinus-serif-regular">
@@ -98,13 +99,13 @@ const currentNews = news.slice(startIndex, endIndex);
                     <div className="lg:col-span-3">
                         <div className="mb-6 flex items-center justify-between border-b pb-4 libertinus-serif-regular">
                             <p className="text-md text-gray-600">
-                              Showing {news.length > 0 ? startIndex + 1 : 0}–
-{Math.min(endIndex, news.length)} of {news.length} results
+                                Showing {news.length > 0 ? startIndex + 1 : 0}–
+                                {Math.min(endIndex, news.length)} of {news.length} results
                             </p>
-                            <select className="rounded border bg-white px-3 py-2 text-sm outline-none">
+                            {/* <select className="rounded border bg-white px-3 py-2 text-sm outline-none">
                                 <option>Latest First</option>
                                 <option>Oldest First</option>
-                            </select>
+                            </select> */}
                         </div>
 
                         {news.length > 0 ? (
@@ -118,61 +119,58 @@ const currentNews = news.slice(startIndex, endIndex);
                         )}
 
                         {/* Pagination */}
-                  {totalPages > 1 && (
-    <div className="mt-12 flex flex-wrap justify-center gap-2">
+                        {totalPages > 1 && (
+                            <div className="mt-12 flex flex-wrap justify-center gap-2">
 
-        {/* Previous */}
-        <button
-            onClick={() =>
-                setCurrentPage((prev) => Math.max(prev - 1, 1))
-            }
-            disabled={currentPage === 1}
-            className={`flex h-10 items-center justify-center rounded border px-4 ${
-                currentPage === 1
-                    ? "cursor-not-allowed bg-gray-100 text-gray-400"
-                    : "bg-white hover:bg-gray-100"
-            }`}
-        >
-            &laquo; Prev
-        </button>
+                                {/* Previous */}
+                                <button
+                                    onClick={() =>
+                                        setCurrentPage((prev) => Math.max(prev - 1, 1))
+                                    }
+                                    disabled={currentPage === 1}
+                                    className={`flex h-10 items-center justify-center rounded border px-4 ${currentPage === 1
+                                            ? "cursor-not-allowed bg-gray-100 text-gray-400"
+                                            : "bg-white hover:bg-gray-100"
+                                        }`}
+                                >
+                                    &laquo; Prev
+                                </button>
 
-        {/* Page Numbers */}
-        {Array.from({ length: totalPages }, (_, index) => {
-            const page = index + 1;
+                                {/* Page Numbers */}
+                                {Array.from({ length: totalPages }, (_, index) => {
+                                    const page = index + 1;
 
-            return (
-                <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`flex h-10 w-10 items-center justify-center rounded border ${
-                        currentPage === page
-                            ? "border-red-600 bg-red-600 text-white"
-                            : "bg-white hover:bg-gray-100"
-                    }`}
-                >
-                    {page}
-                </button>
-            );
-        })}
+                                    return (
+                                        <button
+                                            key={page}
+                                            onClick={() => setCurrentPage(page)}
+                                            className={`flex h-10 w-10 items-center justify-center rounded border ${currentPage === page
+                                                    ? "border-red-600 bg-red-600 text-white"
+                                                    : "bg-white hover:bg-gray-100"
+                                                }`}
+                                        >
+                                            {page}
+                                        </button>
+                                    );
+                                })}
 
-        {/* Next */}
-        <button
-            onClick={() =>
-                setCurrentPage((prev) =>
-                    Math.min(prev + 1, totalPages)
-                )
-            }
-            disabled={currentPage === totalPages}
-            className={`flex h-10 items-center justify-center rounded border px-4 ${
-                currentPage === totalPages
-                    ? "cursor-not-allowed bg-gray-100 text-gray-400"
-                    : "bg-white hover:bg-gray-100"
-            }`}
-        >
-            Next &raquo;
-        </button>
-    </div>
-)}
+                                {/* Next */}
+                                <button
+                                    onClick={() =>
+                                        setCurrentPage((prev) =>
+                                            Math.min(prev + 1, totalPages)
+                                        )
+                                    }
+                                    disabled={currentPage === totalPages}
+                                    className={`flex h-10 items-center justify-center rounded border px-4 ${currentPage === totalPages
+                                            ? "cursor-not-allowed bg-gray-100 text-gray-400"
+                                            : "bg-white hover:bg-gray-100"
+                                        }`}
+                                >
+                                    Next &raquo;
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     {/* Sidebar */}

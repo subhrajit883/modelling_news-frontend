@@ -9,6 +9,7 @@ export const authUrl = {
 export const newsUrl = {
   create: `${BASE_URL}/news`,
   getAll: `${BASE_URL}/news`,
+  getCount: `${BASE_URL}/news/count`,
   getById: `${BASE_URL}/news`,
   getBySlug: `${BASE_URL}/news/slug/:slug`,
   update: `${BASE_URL}/news`,

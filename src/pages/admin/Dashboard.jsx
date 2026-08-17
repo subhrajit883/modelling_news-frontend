@@ -29,6 +29,19 @@ function Dashboard() {
     const [editingCategory, setEditingCategory] = useState(null);
     const [editingCountry, setEditingCountry] = useState(null);
 
+    const fetchNewsCount = async () => {
+        try {
+            const res = await axios.get(newsUrl.getCount);
+            console.log("News count response:", res.data.totalNews);
+            if (res.data.success) {
+                setNewsStats({ total: res.data.totalNews });
+            }
+        } catch (error) {
+            console.error("Error fetching news count:", error);
+            toast.error("Failed to load news count");
+        }
+    };
+
     // Fetch Data
     const fetchData = async () => {
         setIsLoading(true);
@@ -43,7 +56,6 @@ function Dashboard() {
             // Assuming newsRes.data is an array or contains a total count
             // Adapt according to the actual API response structure
             const newsData = newsRes.data?.data || newsRes.data || [];
-            setNewsStats({ total: Array.isArray(newsData) ? newsData.length : (newsData.total || 0) });
 
             setCategories(catsRes.data?.data || catsRes.data || []);
             setCountries(countriesRes.data?.data || countriesRes.data || []);
@@ -59,6 +71,7 @@ function Dashboard() {
 
     useEffect(() => {
         fetchData();
+        fetchNewsCount();
     }, []);
 
     // Handlers

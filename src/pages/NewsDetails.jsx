@@ -18,6 +18,7 @@ import {
 import { newsUrl } from "../../config/config";
 import FilterSidebar from "../components/home/FilterSidebar";
 import TrendingNews from "../components/home/TrendingNews";
+import bg from '../assets/bg.png';
 
 const NewsDetails = () => {
 
@@ -99,7 +100,9 @@ const NewsDetails = () => {
 
     return (
 
-        <div className="bg-white">
+        <div className="bg-white "
+           style={{ backgroundImage: `url(${bg})` }}
+        >
             {/* Breadcrumb */}
 
             <div className="border-b border-gray-200">
